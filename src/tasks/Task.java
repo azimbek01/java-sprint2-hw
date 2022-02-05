@@ -1,18 +1,20 @@
 package tasks;
 
+import manager.Status;
+
 import java.util.Objects;
 
 public class Task {
     private String name;
     private String description;
     private Integer id;
-    private String status;
+    private Status status;
 
     public Task(String name, String description, Integer id) {
         this.name = name;
         this.description = description;
         this.id = id;
-        this.status = "NEW";
+        this.status = Status.NEW;
     }
 
     public String getName() {
@@ -39,11 +41,11 @@ public class Task {
         this.id = id;
     }
 
-    public String getStatus() {
+    public Status getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(Status status) {
         this.status = status;
     }
 
@@ -52,7 +54,8 @@ public class Task {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Task task = (Task) o;
-        return Objects.equals(name, task.name) && Objects.equals(description, task.description) && Objects.equals(id, task.id) && Objects.equals(status, task.status);
+        return Objects.equals(name, task.name) && Objects.equals(description, task.description) &&
+                              Objects.equals(id, task.id) && Objects.equals(status, task.status);
     }
 
     @Override
