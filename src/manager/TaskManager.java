@@ -6,42 +6,34 @@ import tasks.Task;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
 
 public interface TaskManager {
-    HashMap<Integer, Task> tasks = new HashMap<>();
-    HashMap<Integer, Epic> epics = new HashMap<>();
-    HashMap<Integer, Subtask> subtasks = new HashMap<>();
-    Integer idTask = 0;
-    Integer idEpic = 0;
-    Integer idSubtask = 0;
-
     // Счетчик ИД задач, эпиков и подзадач
-    public Integer getNewIdTask();
+    Integer getNewIdTask();
 
-    public Integer getNewIdEpic();
+    Integer getNewIdEpic();
 
-    public Integer getNewIdSubtask();
+    Integer getNewIdSubtask();
 
     // Получение списка всех задач.
-    public Collection<Task> getAllTasks();
+    Collection<Task> getAllTasks();
 
     // Получение списка всех эпиков.
-    public Collection<Epic> getAllEpics();
+    Collection<Epic> getAllEpics();
 
     // Получение списка всех подзадач определённого эпика.
-    public ArrayList<Subtask> getAllSubtaskOfEpic(Epic epic);
+    ArrayList<Subtask> getAllSubtaskOfEpic(Epic epic);
 
     // Получение задачи любого типа по идентификатору.
-    public Task getTaskById(Task task);
+    Task getTask(Task task);
 
-    public Epic getEpicById(Epic epic);
+    Epic getEpic(Epic epic);
 
-    public Subtask getSubtaskById(Subtask subtask);
+    Subtask getSubtask(Subtask subtask);
 
     /* Добавление новой задачи, эпика и подзадачи. Сам объект должен передаваться в качестве
     параметра. */
-    public void createTask(Task task);
+    void createTask(Task task);
 
     public void createEpic(Epic epic);
 
@@ -49,25 +41,22 @@ public interface TaskManager {
 
     /* Обновление задачи любого типа по идентификатору. Новая версия объекта передаётся в виде
     параметра. */
-    public void updateTaskById(Task task);
+    void updateTaskById(Task task);
 
-    public void updateEpicById(Epic epic);
+    void updateEpicById(Epic epic);
 
     // Обновление всех полей подзадачи. Обновление статуса в связанном эпике objectEpic
-    public void updateSubtaskById(Subtask subtask);
+    void updateSubtaskById(Subtask subtask);
 
     // Удаление ранее добавленных задач — всех и по идентификатору.
-    public void deleteAll();
+    void deleteAll();
 
-    public void deleteTaskById(Task task);
+    void deleteTask(Task task);
 
     // Удаление эпика из хэш-таблицы epics и подзадачи из хэш-таблицы subtasks
-    public void deleteEpicById(Epic epic);
+    void deleteEpic(Epic epic);
 
     /* Удаление подзадачи из хэш-таблицы subtasks и из списка subtasksEpic в эпике. Удаление эпика
     из хэш-таблицы epics при пустом списке */
-    public void deleteSubtaskById(Subtask subtask);
-
-    //Отображение последних просмотренных задач
-    //public List <Task> history(Task task);
+    void deleteSubtask(Subtask subtask);
 }

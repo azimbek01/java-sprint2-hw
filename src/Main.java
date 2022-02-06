@@ -7,8 +7,8 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        TaskManager taskManager = new Managers().getDefault();
-        HistoryManager historyManager = new Managers().getDefaultHistory();
+        TaskManager taskManager = Managers.getDefault();
+        HistoryManager historyManager = Managers.getDefaultHistory();
 
         // Создание задачи №1
         Integer idTask1 = taskManager.getNewIdTask();
@@ -61,10 +61,12 @@ public class Main {
         taskManager.getAllSubtaskOfEpic(epic2);
 
         // Получение задачи, эпика, подзадачи по идентификатору
-        taskManager.getTaskById(task1);
-        taskManager.getEpicById(epic1);
-        taskManager.getEpicById(epic2);
-        taskManager.getSubtaskById(subtask1);
+        taskManager.getTask(task1);
+        taskManager.getEpic(epic1);
+        taskManager.getSubtask(subtask1);
+        taskManager.getSubtask(subtask2);
+        taskManager.getEpic(epic2);
+        taskManager.getSubtask(subtask3);
 
         // Получение, печать истории поиска задач
         List<Task> historyList = historyManager.getHistory();
@@ -79,7 +81,7 @@ public class Main {
         task1.setStatus(Status.IN_PROGRESS);
         taskManager.updateTaskById(task1);
 
-        epic1.setName("Эпик. Обновленное название");
+        epic1.setName("Эпик. Сходить в супермаркет");
         taskManager.updateEpicById(epic1);
 
         subtask1.setStatus(Status.DONE);
@@ -88,9 +90,9 @@ public class Main {
         taskManager.updateSubtaskById(subtask3);
 
         // Удаление ранее добавленных задач — по идентификатору и всех
-        taskManager.deleteTaskById(task1);
-        taskManager.deleteEpicById(epic2);
-        taskManager.deleteSubtaskById(subtask2);
+        taskManager.deleteTask(task1);
+        taskManager.deleteEpic(epic2);
+        taskManager.deleteSubtask(subtask2);
 
         // Получение, печать истории поиска задач
         List<Task> historyList1 = historyManager.getHistory();
