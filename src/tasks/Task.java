@@ -3,14 +3,15 @@ package tasks;
 import manager.Status;
 
 import java.util.Objects;
+import java.util.UUID;
 
 public class Task {
     private String name;
     private String description;
-    private Integer id;
+    private UUID id;
     private Status status;
 
-    public Task(String name, String description, Integer id) {
+    public Task(String name, String description, UUID id) {
         this.name = name;
         this.description = description;
         this.id = id;
@@ -33,11 +34,11 @@ public class Task {
         this.description = description;
     }
 
-    public Integer getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 

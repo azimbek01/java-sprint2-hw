@@ -1,9 +1,11 @@
 package tasks;
 
+import java.util.UUID;
+
 public class Subtask extends Task{
     private Epic epic;
 
-    public Subtask(String name, String description, Integer id, Epic epic) {
+    public Subtask(String name, String description, UUID id, Epic epic) {
         super(name, description, id);
         this.epic = epic;
     }

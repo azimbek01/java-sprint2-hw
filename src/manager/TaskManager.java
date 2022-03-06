@@ -6,14 +6,15 @@ import tasks.Task;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.UUID;
 
 public interface TaskManager {
     // Счетчик ИД задач, эпиков и подзадач
-    Integer getNewIdTask();
+    UUID getNewIdTask();
 
-    Integer getNewIdEpic();
+    UUID getNewIdEpic();
 
-    Integer getNewIdSubtask();
+    UUID getNewIdSubtask();
 
     // Получение списка всех задач.
     Collection<Task> getAllTasks();
