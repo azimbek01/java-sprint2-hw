@@ -181,6 +181,7 @@ public class InMemoryTaskManager implements TaskManager {
         if (!tasks.isEmpty()) {
             if (tasks.containsKey(task.getId())) {
                 tasks.remove(task.getId(), task);
+                historyManager.remove(task.getId());
             } else {
                 System.out.println("Задача с ид=" + task.getId() + " не существует.");
             }

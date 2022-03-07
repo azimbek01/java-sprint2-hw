@@ -59,14 +59,14 @@ public class Main {
         taskManager.getEpic(epicTwo);
 
         // Удаление задачи из истории
-        taskManager.deleteTask(taskOne);
-        taskManager.deleteSubtask(subtaskOne);
-        taskManager.deleteEpic(epicOne);
-
-        // Удаление эпика №1 с тремя подзадачами
-        taskManager.deleteEpic(epicOne);
-
-        // Удаление всех задач, эпиков, подзадач. Удаление всей истории поиска
+//        taskManager.deleteTask(taskOne);
+//        taskManager.deleteSubtask(subtaskOne);
+//        taskManager.deleteEpic(epicOne);
+//
+//        // Удаление эпика №1 с тремя подзадачами
+//        taskManager.deleteEpic(epicOne);
+//
+//        // Удаление всех задач, эпиков, подзадач. Удаление всей истории поиска
         taskManager.deleteAll();
 
         List<Task> taskList = historyManager.getHistory();
