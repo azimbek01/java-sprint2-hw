@@ -2,10 +2,13 @@ package manager;
 
 import tasks.Task;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class InMemoryHistoryManager implements HistoryManager {
-    private Map<UUID, Node<Task>> nodeMap = new HashMap<>();
+    protected Map<Integer, Node<Task>> nodeMap = new HashMap<>();
 
     private Node<Task> first;
     private Node<Task> last;
@@ -20,7 +23,7 @@ public class InMemoryHistoryManager implements HistoryManager {
     }
 
     @Override
-    public void remove(UUID id) {
+    public void remove(Integer id) {
         if (nodeMap.containsKey(id)) {
             removeNode(id);
             nodeMap.remove(id);
@@ -63,7 +66,7 @@ public class InMemoryHistoryManager implements HistoryManager {
         return newNode;
     }
 
-    private void removeNode(UUID id) {
+    private void removeNode(Integer id) {
         Node node = nodeMap.get(id);
         Node prevNode = node.getPrev();
         Node nextNode = node.getNext();

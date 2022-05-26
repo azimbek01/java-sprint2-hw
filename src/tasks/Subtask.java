@@ -1,20 +1,31 @@
 package tasks;
 
-import java.util.UUID;
+import manager.Status;
+import manager.Type;
 
 public class Subtask extends Task{
-    private Epic epic;
+    private Integer epicId;
 
-    public Subtask(String name, String description, UUID id, Epic epic) {
-        super(name, description, id);
-        this.epic = epic;
+    public Subtask(String name, String description, Integer id, Integer epicId, Type type) {
+        super(name, description, id, type);
+        this.epicId = epicId;
     }
 
-    public Epic getEpic() {
-        return epic;
+    // New
+    public Subtask(String name, String description, Integer id, Status status, Integer epicId, Type type) {
+        super(name, description, id, status, type); //added type
+        //this.epic = epic;
+        this.epicId = epicId;
     }
 
-    public void setEpic(Epic epic) {
-        this.epic = epic;
+    // Rename method
+    public Integer getEpicId() {
+        //return epic;
+        return epicId;
+    }
+
+    public void setEpic(Integer epicId) {
+        //this.epic = epic;
+        this.epicId = epicId;
     }
 }

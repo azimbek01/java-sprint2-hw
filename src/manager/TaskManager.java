@@ -6,15 +6,10 @@ import tasks.Task;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.UUID;
 
 public interface TaskManager {
     // Счетчик ИД задач, эпиков и подзадач
-    UUID getNewIdTask();
-
-    UUID getNewIdEpic();
-
-    UUID getNewIdSubtask();
+    Integer getNewIdTask();
 
     // Получение списка всех задач.
     Collection<Task> getAllTasks();
@@ -32,13 +27,15 @@ public interface TaskManager {
 
     Subtask getSubtask(Subtask subtask);
 
+    HistoryManager getHistoryManager();
+
     /* Добавление новой задачи, эпика и подзадачи. Сам объект должен передаваться в качестве
     параметра. */
     void createTask(Task task);
 
-    public void createEpic(Epic epic);
+    void createEpic(Epic epic);
 
-    public void createSubtask(Subtask subtask);
+    void createSubtask(Subtask subtask);
 
     /* Обновление задачи любого типа по идентификатору. Новая версия объекта передаётся в виде
     параметра. */

@@ -3,12 +3,11 @@ package manager;
 import tasks.Task;
 
 import java.util.List;
-import java.util.UUID;
 
 public interface HistoryManager {
     void add(Task task);
 
-    void remove(UUID id);
+    void remove(Integer id);
 
     List<Task> getHistory();
 

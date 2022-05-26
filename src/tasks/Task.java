@@ -1,21 +1,31 @@
 package tasks;
 
 import manager.Status;
+import manager.Type;
 
 import java.util.Objects;
-import java.util.UUID;
 
 public class Task {
     private String name;
     private String description;
-    private UUID id;
+    private Integer id;
     private Status status;
+    private Type type;
 
-    public Task(String name, String description, UUID id) {
+    public Task(String name, String description, Integer id, Type type) {
         this.name = name;
         this.description = description;
         this.id = id;
         this.status = Status.NEW;
+        this.type = type;
+    }
+
+    public Task(String name, String description, Integer id, Status status, Type type) {
+        this.name = name;
+        this.description = description;
+        this.id = id;
+        this.status = status;
+        this.type = type; //added
     }
 
     public String getName() {
@@ -34,11 +44,11 @@ public class Task {
         this.description = description;
     }
 
-    public UUID getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -50,13 +60,24 @@ public class Task {
         this.status = status;
     }
 
+    // added
+
+
+    public Type getType() {
+        return type;
+    }
+
+    public void setType(Type type) {
+        this.type = type;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Task task = (Task) o;
         return Objects.equals(name, task.name) && Objects.equals(description, task.description) &&
-                              Objects.equals(id, task.id) && Objects.equals(status, task.status);
+                Objects.equals(id, task.id) && Objects.equals(status, task.status);
     }
 
     @Override

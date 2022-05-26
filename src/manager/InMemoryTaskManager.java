@@ -4,28 +4,20 @@ import tasks.Epic;
 import tasks.Subtask;
 import tasks.Task;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
 
 public class InMemoryTaskManager implements TaskManager {
-    private HashMap<UUID, Task> tasks = new HashMap<>();
-    private HashMap<UUID, Epic> epics = new HashMap<>();
-    private HashMap<UUID, Subtask> subtasks = new HashMap<>();
-    private HistoryManager historyManager = Managers.getDefaultHistory();
+    protected HashMap<Integer, Task> tasks = new HashMap<>();
+    protected HashMap<Integer, Epic> epics = new HashMap<>();
+    protected HashMap<Integer, Subtask> subtasks = new HashMap<>();
+    protected HistoryManager historyManager = Managers.getDefaultHistory();
+    protected Integer idTask = 0;
 
     @Override
-    public UUID getNewIdTask() {
-        return UUID.randomUUID();
-    }
-
-    @Override
-    public UUID getNewIdEpic() {
-        return UUID.randomUUID();
-    }
-
-    @Override
-    public UUID getNewIdSubtask() {
-        //return ++idSubtask;
-        return UUID.randomUUID();
+    public Integer getNewIdTask() {
+        return ++idTask;
     }
 
     // Получение списка всех задач.
@@ -78,8 +70,13 @@ public class InMemoryTaskManager implements TaskManager {
         return subtasks.getOrDefault(subtask.getId(), null);
     }
 
+    @Override
+    public HistoryManager getHistoryManager() {
+        return historyManager;
+    }
+
     /* Добавление новой задачи, эпика и подзадачи. Сам объект должен передаваться в качестве
-    параметра. */
+        параметра. */
     @Override
     public void createTask(Task task) {
         if (!tasks.containsKey(task.getId())) {
@@ -103,8 +100,11 @@ public class InMemoryTaskManager implements TaskManager {
     public void createSubtask(Subtask subtask) {
         if (!subtasks.containsKey(subtask.getId())) {
             subtasks.put(subtask.getId(), subtask);
-            if (epics.containsKey(subtask.getEpic().getId())) {
-                Epic epic = epics.get(subtask.getEpic().getId());
+            // Added
+            Integer epicID = subtask.getEpicId();
+            Epic epic = epics.get(epicID); // added
+            if (epics.containsKey(epic.getId())) {
+                //Epic epic = epics.get(subtask.getEpic().getId());
                 epic.getSubtasks().add(subtask);
             } else {
                 System.out.println("Подзадача с ид=" + subtask.getId() + " не найдена в эпиках");
@@ -139,7 +139,11 @@ public class InMemoryTaskManager implements TaskManager {
         objectSubtask.setName(subtask.getName());
         objectSubtask.setDescription(subtask.getDescription());
         objectSubtask.setStatus(subtask.getStatus());
-        Epic objectEpic = objectSubtask.getEpic();
+        // Epic objectEpic = objectSubtask.getEpic();
+        // Added
+        Integer epicID = objectSubtask.getEpicId();
+        Epic objectEpic = epics.get(epicID);
+
         ArrayList<Subtask> subtasksEpic = objectEpic.getSubtasks();
         if (!subtasksEpic.isEmpty()) {
             boolean newStatus = true;
@@ -222,7 +226,10 @@ public class InMemoryTaskManager implements TaskManager {
                 subtasks.remove(subtask.getId(), subtask);
                 historyManager.remove(subtask.getId());
                 // Удаление подзадачи из списка subtasksEpic в эпике
-                Epic epic = subtask.getEpic();
+                // added
+                Integer epicId = subtask.getEpicId();
+                //Epic epic = subtask.getEpic();
+                Epic epic = epics.get(epicId);
                 ArrayList<Subtask> subtasksEpic = epic.getSubtasks();
                 for(Subtask subtaskValue : subtasksEpic) {
                     if (subtaskValue.equals(subtask)) {

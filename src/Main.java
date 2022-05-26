@@ -3,9 +3,7 @@ import tasks.Epic;
 import tasks.Subtask;
 import tasks.Task;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 public class Main {
     public static void main(String[] args) {
@@ -13,49 +11,40 @@ public class Main {
         HistoryManager historyManager = Managers.getDefaultHistory();
 
         // Создание двух задач
-        UUID idTaskOne = taskManager.getNewIdTask();
-        Task taskOne = new Task("Задача №1", "Задача №1", idTaskOne);
+        Integer idTaskOne = taskManager.getNewIdTask();
+        Task taskOne = new Task("Задача1", "Задача1", idTaskOne, Type.TASK);
         taskManager.createTask(taskOne);
 
-        UUID idTaskTwo = taskManager.getNewIdTask();
-        Task taskTwo = new Task("Задача №2", "Задача №2", idTaskTwo);
+        Integer idTaskTwo = taskManager.getNewIdTask();
+        Task taskTwo = new Task("Задача №2", "Задача №2", idTaskTwo, Type.TASK);
         taskManager.createTask(taskTwo);
 
         //Создание Эпика №1 с 3 подзадачами
-        UUID idEpicOne = taskManager.getNewIdEpic();
-        Epic epicOne = new Epic("Эпик №1", "С 3 подзадачами", idEpicOne);
+        Integer idEpicOne = taskManager.getNewIdTask();
+        Epic epicOne = new Epic("Эпик №1", "С 3 подзадачами", idEpicOne, Type.EPIC);
         taskManager.createEpic(epicOne);
 
-        UUID idSubtaskOne = taskManager.getNewIdSubtask();
-        Subtask subtaskOne = new Subtask("Подзадача №1", "Эпик № 1", idSubtaskOne,
-                                         epicOne);
-        taskManager.createSubtask(subtaskOne);
+        Subtask subtask1 = new Subtask("Subtask1", "Subtask1", taskManager.getNewIdTask(),
+                                        epicOne.getId(), Type.SUBTASK);
 
-        UUID idSubtaskTwo = taskManager.getNewIdSubtask();
-        Subtask subtaskTwo = new Subtask("Подзадача №2", "Эпик № 1", idSubtaskTwo,
-                epicOne);
-        taskManager.createSubtask(subtaskTwo);
-
-        UUID idSubtaskThree = taskManager.getNewIdSubtask();
-        Subtask subtaskThree = new Subtask("Подзадача №3", "Эпик № 1",
-                                           idSubtaskThree, epicOne);
-        taskManager.createSubtask(subtaskThree);
+        Subtask subtask2 = new Subtask("Subtask2", "Subtask2", taskManager.getNewIdTask(),
+                                        epicOne.getId(), Type.SUBTASK);
 
         // Создание Эпика №2 без подзадач
-        UUID idEpicTwo = taskManager.getNewIdEpic();
-        Epic epicTwo = new Epic("Эпик №2", "Без подзадач", idEpicTwo);
+        Integer idEpicTwo = taskManager.getNewIdTask();
+        Epic epicTwo = new Epic("Эпик №2", "Без подзадач", idEpicTwo, Type.EPIC);
         taskManager.createEpic(epicTwo);
 
         // Запрос созданных задач несколько раз в разном порядке
         taskManager.getTask(taskOne);
         taskManager.getEpic(epicOne);
-        taskManager.getSubtask(subtaskOne);
-        taskManager.getSubtask(subtaskTwo);
+        taskManager.getSubtask(subtask1);
+        taskManager.getSubtask(subtask2);
         taskManager.getEpic(epicTwo);
 
         taskManager.getTask(taskOne);
         taskManager.getEpic(epicOne);
-        taskManager.getSubtask(subtaskOne);
+        taskManager.getSubtask(subtask1);
         taskManager.getEpic(epicTwo);
 
         // Удаление задачи из истории
@@ -67,10 +56,10 @@ public class Main {
 //        taskManager.deleteEpic(epicOne);
 //
 //        // Удаление всех задач, эпиков, подзадач. Удаление всей истории поиска
-        taskManager.deleteAll();
+//        taskManager.deleteAll();
 
         List<Task> taskList = historyManager.getHistory();
-        for (Task task: taskList) {
+        for (Task task : taskList) {
             System.out.println(task.getName());
         }
 
